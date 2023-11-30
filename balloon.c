@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
 #include <stdbool.h>
 #include <string.h>
-#include <limits.h>
 
 #define MAX_BALLOONS 40
 #define MAX_T 100
@@ -159,12 +157,22 @@ result_t solve(int n)
       nextRobotStates[2].isOk = true;
       nextRobotStates[2].traveledDistance = currentRobotStates[1].traveledDistance + distance;
     }
+    else
+    {
+      nextRobotStates[2].isOk = false;
+      nextRobotStates[2].traveledDistance = MYNULL;
+    }
 
     // 次のステップでrobotがballoonを3個保有している場合
     if (currentRobotStates[2].isOk && (distance * 3) <= time)
     {
       nextRobotStates[3].isOk = true;
       nextRobotStates[3].traveledDistance = currentRobotStates[2].traveledDistance + distance;
+    }
+    else
+    {
+      nextRobotStates[3].isOk = false;
+      nextRobotStates[3].traveledDistance = MYNULL;
     }
 
     // 現時点でrobotがどれかの状態でballoonをすべて回収できているか確認する
@@ -180,8 +188,6 @@ result_t solve(int n)
       nextRobotStates[1].traveledDistance,
       nextRobotStates[2].traveledDistance,
       nextRobotStates[3].traveledDistance};
-
-  printf("1a=%d 2a=%d 3a=%d\n", array[0], array[1], array[2]);
   result.num = findMinNonNull(array, 3) + balloons[n - 1].pos; // 家に帰る距離を足す
   result.isOK = true;
   return result;
