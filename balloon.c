@@ -54,8 +54,8 @@ void setupBalloons(FILE *in, int n)
 }
 
 /*ロボットの状態の配列*/
-robot_t nextRobotStates[4];
 robot_t currentRobotStates[4];
+robot_t nextRobotStates[4];
 
 /*ロボットの状態の配列の初期化*/
 bool initRobotStates()
